@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,28 +14,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Table(name="students")
+@Table(name="projects")
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 
-public class student {
+public class Project {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private @Nullable Integer id;
-    private String name;
-    private String email;
+    private @Nullable Integer projID;
+    private String projname;
+    private String gitHubURL;
+    private String youtubeURL;
 
-@ManyToMany
-@JoinTable(
-    name = "projects", // name of the join table
-    joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id")
-    
-)
-private List<Project> projects;
+@ManyToMany(mappedBy = "projects") // mappedBy points to the field name in Student
+private List<student> students;
 }
-    //public student(String name,String email){
-    //this.name=name;this.email=email;}
-
